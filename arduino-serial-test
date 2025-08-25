@@ -1,0 +1,24 @@
+# Importing Libraries
+import time
+import serial
+import sys
+
+
+#instantiate arduino
+arduino = serial.Serial('COM7',115200)
+#wait for arduino to initialize
+time.sleep(1)
+
+
+try:
+    while True:
+        while (arduino.inWaiting()==0):
+            pass
+        dataPacket=arduino.readline()
+        dataPacket=str(dataPacket,'utf-8')
+        dataPacket=dataPacket.strip('\r\n')
+        if (dataPacket == "TOP OPEN"):
+             print("TOP OPEN")
+except KeyboardInterrupt:
+        print('Interrupted')
+        sys.exit(0)
